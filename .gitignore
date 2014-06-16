@@ -1,0 +1,8 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+
+duplicate-finder
+*.o
+log.txt
+test/
