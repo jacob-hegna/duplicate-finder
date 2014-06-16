@@ -2,6 +2,11 @@ BUILDDIR    = ./bin/
 INCLUDEDIR  = ./include/
 SOURCEDIR   = ./
 
+PREFIX      = /usr/local
+INSTDIR     = $(PREFIX)
+INSTBIN     = $(INSTDIR)/bin
+
+
 DEFINES     =
 
 SDIRS       = $(wildcard $(SOURCEDIR)*/)
@@ -28,6 +33,14 @@ $(TARGET): $(foreach file, $(OFILES), $(BUILDDIR)$(file))
 $(BUILDDIR)%.cpp.o: %.cpp
 	$(CC) $(foreach def, $(DEFINES), -D $(def)) $(CCFLAGS) $< -o $@
 
+install:
+	test -d $(INSTDIR) || mkdir -p $(INSTDIR)
+	test -d $(INSTBIN) || mkdir -p $(INSTBIN)
+
+	install -m 0755 $(TARGET) $(INSTBIN)
+
+remove:
+	rm $(INSTBIN)/$(TARGET)
 
 .PHONY: clean
 clean:

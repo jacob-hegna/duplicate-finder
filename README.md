@@ -13,9 +13,10 @@ The only external library used is Boost Filesystem, and if you don't have that i
 git clone https://github.com/jacob-hegna/duplicate-finder.git
 cd duplicate-finder
 make
+make install
 ```
 
 ## Usage
 ```
-./duplicate-finder [folder] [log name]
+duplicate-finder [folder] [log name]
 ```
