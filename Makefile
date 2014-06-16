@@ -18,7 +18,7 @@ CCFLAGS     = -c -O3 -std=c++0x -I$(INCLUDEDIR)
 LINKFLAGS   = -lboost_system -lboost_filesystem
 
 
-TARGET = debate-duplicates
+TARGET = duplicate-finder
 
 all: $(TARGET)
 
