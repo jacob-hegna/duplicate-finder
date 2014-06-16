@@ -80,14 +80,11 @@ std::vector<std::string> getMatches(std::vector<File> files) {
 void writeLog(std::string path, std::vector<File> files, std::vector<std::string> matches) {
     std::ofstream file(path);
 
-    int fileSize  = 0,
-        matchSize = 0;
-
     file << "Duplicate file finder log" << std::endl
          << "Written by Jacob Hegna" << std::endl
          << std::endl
          << files.size() << " files processed, " << matches.size() << " files deleted as duplicates ("
-            << ((float)matchSize)/((float)fileSize) << " percent)" << std::endl
+            << ((float)matches.size())/((float)files.size()) << "%)" << std::endl
          << "Below are the deleted files" << std::endl
          << "---------------------------" << std::endl;
 
@@ -101,9 +98,9 @@ void writeLog(std::string path, std::vector<File> files, std::vector<std::string
 int main(int argc, char *argv[]) {
     if(argc == 3) {
         std::cout << "Scanning folder..." << std::endl;
+        SHA256 sha;
         std::vector<File> files = getDirectory(argv[1]);
         for(int i = 0; i < files.size(); ++i) {
-            SHA256 sha;
             std::ifstream ifile(files.at(i).path);
             std::string line;
             while(getline(ifile, line)) {
@@ -111,6 +108,7 @@ int main(int argc, char *argv[]) {
             }
             files.at(i).hash = sha.getHash();
             ifile.close();
+            sha.reset();
         }
 
         std::cout << "Finding matches..." << std::endl;
